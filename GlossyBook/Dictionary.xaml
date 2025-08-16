@@ -1,0 +1,17 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <Style x:Key="MenuButton" TargetType="Button">
+        <Setter Property="Foreground" Value="{Binding UI.SecondaryTextColor}"/>
+        <Setter Property="Background" Value="{Binding UI.MainColor}"/>
+    </Style>
+    <Style x:Key="MenuText" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{Binding UI.ButtonTextColor}"/>
+    </Style>
+    <Style x:Key="PrimaryText" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{Binding UI.PrimaryTextColor}"/>
+    </Style>
+    <Style x:Key="SecondaryText" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{Binding UI.SecondaryTextColor}"/>
+    </Style>
+</ResourceDictionary>

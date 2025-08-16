@@ -1,0 +1,75 @@
+﻿<Window x:Class="GlossyBook.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GlossyBook" d:DataContext="{d:DesignInstance Type=local:Term}"
+        mc:Ignorable="d"
+        xmlns:svg="http://sharpvectors.codeplex.com/runtime/"
+        xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+        Title="MainWindow" Height="450" Width="798" Visibility="Visible" Background="{Binding UI.MainColor}" WindowStyle="None"
+        MinWidth="600" MinHeight="350">
+    <DockPanel LastChildFill="True">
+        <DockPanel DockPanel.Dock="Top">
+            <svgc:SvgViewbox Source="/Resources/icon.svg" DockPanel.Dock="Left" Width="38" Margin="1,1,11,1"/>
+            <DockPanel DockPanel.Dock="Top">
+                <TextBlock DockPanel.Dock="Left" Text="GlossyBook" Style="{DynamicResource MenuText}"/>
+                <Button x:Name="ExitButton" Width="18" Height="18" HorizontalAlignment="Stretch" Margin="1,0,1,0" Content="×" FontSize="10" DockPanel.Dock="Right" Click="Exit" Style="{DynamicResource MenuButton}"/>
+                <Button x:Name="ResizeButton" Width="18" Height="18" HorizontalAlignment="Stretch" Margin="1,0,1,0" Content="▢" FontSize="10" DockPanel.Dock="Right" Click="Resize" Style="{DynamicResource MenuButton}"/>
+                <Button x:Name="CollapseButton" Width="18" Height="18" HorizontalAlignment="Stretch" Margin="1,0,1,0" Content="━" FontSize="10" DockPanel.Dock="Right" Click="Collapse" Style="{DynamicResource MenuButton}"/>
+                <Rectangle HorizontalAlignment="Stretch" MouseLeftButtonDown="ChangePosition" Fill="{Binding UI.MainColor}"  />
+            </DockPanel>
+            <DockPanel DockPanel.Dock="Top">
+                <ComboBox Name="ThemeSelection" Width="80" DropDownOpened="OnThemeSelectionOpened" SelectionChanged="OnSelectionChanged"/>
+                <Button Width="18" Height="18" DockPanel.Dock="Left" Click="OnAddThemeClicked" Content="+"/>
+                <Button Width="18" Height="18" DockPanel.Dock="Left" Content="-"/>
+                <Button  Height="18" DockPanel.Dock="Left" Click="OnReadFileClicked"  Content="Прочитать"/>
+                <Rectangle HorizontalAlignment="Stretch" MouseLeftButtonDown="ChangePosition" Fill="{Binding UI.MainColor}"  />
+            </DockPanel>
+        </DockPanel>
+        <TabControl TabStripPlacement="Left" DockPanel.Dock="Right">
+            <TabItem Header="1" Width="30" Height="30">
+                <Grid Background="{Binding UI.BackgroundColor}">
+                    <DockPanel>
+                        <ScrollViewer DockPanel.Dock="Left" MinWidth="200">
+                            <ListBox ItemsSource="{Binding ThemeContext}" SelectedItem="{Binding SelectedTerm}" SelectionChanged="OnTermSelected">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Name}" FontFamily="SimSun" Margin="0,0,10,0"/>
+                                                <TextBlock Text="{Binding Tag}"/>
+                                            </StackPanel>
+                                            <TextBlock Text="{Binding CurrentCounter}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </ScrollViewer>
+                        <DockPanel DataContext="{Binding SelectedTerm}" DockPanel.Dock="Right" Margin="20 20 20 20">
+                            <Border DockPanel.Dock="Top">
+                                <DockPanel>
+                                    <StackPanel DockPanel.Dock="Left">
+                                        <TextBlock Text="Термин" Style="{DynamicResource SecondaryText}"/>
+                                        <TextBlock Text="{Binding Name}" FontFamily="SimSun" FontSize="36" Style="{DynamicResource PrimaryText}"/>
+                                    </StackPanel>
+                                    <Border MinWidth="100" MinHeight="100" Margin="30,0,0,0" BorderThickness="1,1,1,1" BorderBrush="#FF9E9E9E" DockPanel.Dock="Right">
+                                        <Image x:Name="TermImage" Source="/Resources/noImage.png" MaxWidth="300" MaxHeight="300" MouseDown="OnImageChanged"/>
+                                    </Border>
+                                </DockPanel>
+                            </Border>
+                            <TextBox x:Name="TagBox" Text="{Binding Tag}" LostFocus="OnTagChanged" DockPanel.Dock="Bottom"/>
+                            <TextBlock Text="Сокращение" DockPanel.Dock="Bottom"/>
+                            <RichTextBox x:Name="TermDescription" LostFocus="OnDescriptionChanged" DockPanel.Dock="Bottom" MinHeight="300"/>
+                            <TextBlock Text="Описание" DockPanel.Dock="Bottom"/>
+                            <Rectangle></Rectangle>
+                        </DockPanel>
+                    </DockPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="2" Width="30" Height="30">
+                <Grid Background="Aqua"/>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>
